@@ -18,7 +18,7 @@ struct vector2d {
 typedef vector<vector<double> > data2d;
 
 
-vector2d get_force(unsigned double distance);
+vector2d get_force(vector2d on, by);
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -58,4 +58,13 @@ int main(int argc, char* argv[]) {
             }
         }
     }
+}
+
+
+vector2d get_force(vector2d on, by) {
+    // Dummy function
+    vector2d force;
+    force.x = on.x;
+    force.y = on.y;
+    return force;
 }

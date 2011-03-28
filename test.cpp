@@ -14,12 +14,12 @@ using namespace std;
 
 struct vector2d {
     double x, y;
-}
+};
 
 typedef vector<vector<double> > data2d;
 
 
-vector2d get_force(vector2d on, by);
+vector2d get_force(vector2d on, vector2d by);
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -27,8 +27,8 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     
-    unsigned double end_time = atoi(argv[1]);
-    unsigned double time=0;
+    double end_time = atoi(argv[1]);
+    double time=0;
     unsigned int i, j;
     data2d data;
 
@@ -63,8 +63,8 @@ int main(int argc, char* argv[]) {
             acceleration.y = 0;
 
             for (j=0; j<data.size(); j++) {
-                by.x = data[j].[0];
-                by.y = data[j].[1];
+                by.x = data[j][0];
+                by.y = data[j][1];
                 
                 // Calculate force
                 vector2d force, acceleration;
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
 
             // Change position
             data[i][0] += data[i][2] * DEFAULT_STEP;
-            date[i][1] += data[i][3] * DEFAULT_STEP;
+            data[i][1] += data[i][3] * DEFAULT_STEP;
 
             time += DEFAULT_STEP;
         }
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 }
 
 
-vector2d get_force(vector2d on, by) {
+vector2d get_force(vector2d on, vector2d by) {
     // Dummy function
     vector2d force;
     force.x = on.x;

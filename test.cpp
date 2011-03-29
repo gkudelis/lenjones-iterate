@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <cmath>
 
 using namespace std;
 
@@ -50,15 +51,17 @@ int main(int argc, char* argv[]) {
 
     //Try solving things :)
     vector2d on, by;
-    double force;
+    vector2d force, acceleration;
     while (time < end_time) {
         // Make a step here
+        cout << time << " ";
         for (i=0; i<data.size(); i++) {
+            cout << data[i][0] << " " << data[i][1] << " "; 
+
             on.x = data[i][0];
             on.y = data[i][1];
             
             // Calculate acceleration from each particle
-            vector2d acceleration;
             acceleration.x = 0;
             acceleration.y = 0;
 
@@ -67,7 +70,6 @@ int main(int argc, char* argv[]) {
                 by.y = data[j][1];
                 
                 // Calculate force
-                vector2d force, acceleration;
                 force = get_force(on, by);
                 
                 // Add to acceleration of current particle
@@ -83,16 +85,23 @@ int main(int argc, char* argv[]) {
             data[i][0] += data[i][2] * DEFAULT_STEP;
             data[i][1] += data[i][3] * DEFAULT_STEP;
 
-            time += DEFAULT_STEP;
         }
+        cout << "\n";
+        
+        time += DEFAULT_STEP;
     }
 }
 
 
-vector2d get_force(vector2d on, vector2d by) {
+inline vector2d get_force(vector2d on, vector2d by) {
     // Dummy function
     vector2d force;
-    force.x = on.x;
-    force.y = on.y;
+
+    double r = sqrt((on.x-by.x)*(on.x-by.x) + (on.y-by.y)*(on.y-by.y));
+    double f = 6*(pow(r,6) - 2) / pow(r,13);
+
+    force.x = (f/r)*(on.x - by.x);
+    force.y = (f/r)*(on.y - by.y);
+
     return force;
 }

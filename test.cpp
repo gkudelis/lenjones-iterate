@@ -1,5 +1,7 @@
+#include <time.h>
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 #include <stdlib.h>
 #include <cmath>
 
@@ -29,7 +31,7 @@ int main(int argc, char* argv[]) {
     }
     
     double end_time = atoi(argv[1]);
-    double time=0;
+    double cur_time=0;
     unsigned int i, j;
     data2d data;
 
@@ -39,20 +41,27 @@ int main(int argc, char* argv[]) {
         data[i].reserve(HEIGHT);
     }
 
+    srand ( (unsigned)time( NULL ) );
+
     //Fill with stupid initial data
     for (i=0; i<data.size(); i++) {
         //Position x,y
-        data[i][0] = 100;
-        data[i][1] = 100;
+        data[i][0] = rand() % 100;
+        data[i][1] = rand() % 100;
         //Velocity x,y
-        data[i][2] = 0;
-        data[i][3] = 0;
+        data[i][2] = (float)rand()/(float)RAND_MAX*2 - 1.0;
+        data[i][3] = (float)rand()/(float)RAND_MAX*2 - 1.0;
+
+        cout << data[i][0] << "\n";
+        cout << data[i][1] << "\n";
+        cout << data[i][2] << "\n";
+        cout << data[i][3] << "\n";
     }
 
     //Try solving things :)
     vector2d on, by;
     vector2d force, acceleration;
-    while (time < end_time) {
+    while (cur_time < end_time) {
         // Make a step here
         cout << time << " ";
         for (i=0; i<data.size(); i++) {
@@ -84,11 +93,10 @@ int main(int argc, char* argv[]) {
             // Change position
             data[i][0] += data[i][2] * DEFAULT_STEP;
             data[i][1] += data[i][3] * DEFAULT_STEP;
-
         }
         cout << "\n";
         
-        time += DEFAULT_STEP;
+        cur_time += DEFAULT_STEP;
     }
 }
 

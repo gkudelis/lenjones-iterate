@@ -51,11 +51,12 @@ int main(int argc, char* argv[]) {
         //Velocity x,y
         data[i][2] = (float)rand()/(float)RAND_MAX*2 - 1.0;
         data[i][3] = (float)rand()/(float)RAND_MAX*2 - 1.0;
-
+/*
         cout << data[i][0] << "\n";
         cout << data[i][1] << "\n";
         cout << data[i][2] << "\n";
         cout << data[i][3] << "\n";
+*/
     }
 
     //Try solving things :)
@@ -63,7 +64,7 @@ int main(int argc, char* argv[]) {
     vector2d force, acceleration;
     while (cur_time < end_time) {
         // Make a step here
-        cout << time << " ";
+        cout << cur_time << " ";
         for (i=0; i<data.size(); i++) {
             cout << data[i][0] << " " << data[i][1] << " "; 
 

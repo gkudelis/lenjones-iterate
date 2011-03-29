@@ -94,7 +94,6 @@ int main(int argc, char* argv[]) {
 
 
 inline vector2d get_force(vector2d on, vector2d by) {
-    // Dummy function
     vector2d force;
 
     double r = sqrt((on.x-by.x)*(on.x-by.x) + (on.y-by.y)*(on.y-by.y));

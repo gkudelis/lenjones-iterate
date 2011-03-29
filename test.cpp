@@ -76,12 +76,14 @@ int main(int argc, char* argv[]) {
             acceleration.y = 0;
 
             for (j=0; j<data.size(); j++) {
+                if (i == j) continue;
+
                 by.x = data[j][0];
                 by.y = data[j][1];
                 
                 // Calculate force
                 force = get_force(on, by);
-                
+
                 // Add to acceleration of current particle
                 acceleration.x += force.x / MASS;
                 acceleration.y += force.y / MASS;

@@ -8,10 +8,10 @@
 using namespace std;
 
 
-#define WIDTH 10
+#define WIDTH 100
 #define HEIGHT 4
 
-#define DEFAULT_STEP 0.001
+#define DEFAULT_STEP 1.0
 #define MAX_VELOCITY_CHANGE 0.001
 #define MASS 0.001
 
@@ -29,7 +29,11 @@ int main(int argc, char* argv[]) {
         cout << "Usage: solve [time]\n";
         return 0;
     }
-    
+/*
+    double step = DEFAULT_STEP;
+    if (argc == 3) {
+        step = 
+*/    
     double end_time = atoi(argv[1]);
     double cur_time=0;
     unsigned int i, j;
@@ -46,8 +50,8 @@ int main(int argc, char* argv[]) {
     //Fill with stupid initial data
     for (i=0; i<data.size(); i++) {
         //Position x,y
-        data[i][0] = rand() % 100;
-        data[i][1] = rand() % 100;
+        data[i][0] = (rand() % 200) - 100;
+        data[i][1] = (rand() % 200) - 100;
         //Velocity x,y
         data[i][2] = (float)rand()/(float)RAND_MAX*2 - 1.0;
         data[i][3] = (float)rand()/(float)RAND_MAX*2 - 1.0;
@@ -108,7 +112,7 @@ inline vector2d get_force(vector2d on, vector2d by) {
     vector2d force;
 
     double r = sqrt((on.x-by.x)*(on.x-by.x) + (on.y-by.y)*(on.y-by.y));
-    double f = 6*(pow(r,6) - 2) / pow(r,13);
+    double f = 24*(pow(r,6) - 2) / pow(r,13);
 
     force.x = (f/r)*(on.x - by.x);
     force.y = (f/r)*(on.y - by.y);

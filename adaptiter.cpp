@@ -1,8 +1,8 @@
-#include <time.h>
+#include <ctime>
 #include <iostream>
 #include <vector>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <cmath>
 
 using namespace std;

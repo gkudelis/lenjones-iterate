@@ -15,8 +15,21 @@ using namespace std;
 #define MAX_VELOCITY_CHANGE 0.001
 #define MASS 0.001
 
+struct boundaries {
+    double top, bottom;
+    double left, right;
+};
+
 struct vector2d {
     double x, y;
+};
+
+struct particle {
+    // Position, velocity and acceleration
+    // Storing acceleration is needed for Runge-Kutta
+    vector2d p, v, a;
+    // Position in grid
+    int grid;
 };
 
 typedef vector<vector<double> > data2d;
@@ -29,11 +42,14 @@ int main(int argc, char* argv[]) {
         cout << "Usage: solve [time]\n";
         return 0;
     }
-/*
-    double step = DEFAULT_STEP;
-    if (argc == 3) {
-        step = 
-*/    
+
+    // Set up boundaries of rectangle box
+    boundaries bn;
+    bn.bottom = -100;
+    bn.top = 100;
+    bn.left = -100;
+    bn.right = 100;
+    
     double end_time = atoi(argv[1]);
     double cur_time=0;
     unsigned int i, j;
@@ -50,27 +66,24 @@ int main(int argc, char* argv[]) {
     //Fill with stupid initial data
     for (i=0; i<data.size(); i++) {
         //Position x,y
-        data[i][0] = (rand() % 200) - 100;
-        data[i][1] = (rand() % 200) - 100;
+        data[i][0] = fmod(rand(), (bn.right-bn.left)) + bn.left;
+        data[i][1] = fmod(rand(), (bn.top-bn.bottom)) + bn.bottom;
         //Velocity x,y
         data[i][2] = (float)rand()/(float)RAND_MAX*2 - 1.0;
         data[i][3] = (float)rand()/(float)RAND_MAX*2 - 1.0;
-/*
-        cout << data[i][0] << "\n";
-        cout << data[i][1] << "\n";
-        cout << data[i][2] << "\n";
-        cout << data[i][3] << "\n";
-*/
     }
+
+    // Inform how much data we'll produce
+    cout << end_time / DEFAULT_STEP << endl;
 
     //Try solving things :)
     vector2d on, by;
     vector2d force, acceleration;
     while (cur_time < end_time) {
         // Make a step here
-        cout << cur_time << " ";
+        cout << cur_time;
         for (i=0; i<data.size(); i++) {
-            cout << data[i][0] << " " << data[i][1] << " "; 
+            cout << " " << data[i][0] << " " << data[i][1]; 
 
             on.x = data[i][0];
             on.y = data[i][1];
